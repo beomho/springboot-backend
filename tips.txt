@@ -1,0 +1,56 @@
+
+
+
+curl https://start.spring.io/starter.zip -d dependencies=h2,data-jpa,data-rest,lombok -d javaVersion=17 -o demo.zip
+
+
+unzip demo.zip
+
+
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+./gradlew build --continuous --parallel --build-cache --configuration-cache
+
+.gradlew bootRun
+
+
+
+##### MongoDB #####
+
+Start and Enable MongoDB Service
+start the MongoDB service and enable it to start on boot:
+
+>> sudo systemctl enable mongod.service 
+>> sudo systemctl start mongod.service
+
+check its status with:
+ 
+>> sudo systemctl status mongod.service
+
+
+
+create account
+
+>> mongosh
+
+
+>> use admin
+>>
+
+db.createUser(
+  {
+    user: "dev",
+    pwd:  "1098",
+    roles: [
+    // 슈퍼 유저 권한
+    	{ "role" : "readWriteAnyDatabase", "db" : "admin" },
+    	{ "role" : "userAdminAnyDatabase", "db" : "admin" },
+        { "role" : "dbAdminAnyDatabase", "db" : "admin" },
+        { "role" : "clusterAdmin", "db" : "admin" },
+        { "role" : "restore", "db" : "admin" },
+        { "role" : "readWrite", "db" : "admin" },
+        { "role" : "dbAdmin", "db" : "admin" },
+        { "role" : "backup", "db" : "admin" }
+	]
+  }
+)
