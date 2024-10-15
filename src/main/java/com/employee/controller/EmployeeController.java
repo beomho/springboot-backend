@@ -1,10 +1,10 @@
-package com.app.controller;
+package com.employee.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.repository.EmployeeRepository;
-import com.app.exception.ResourceNotFoundException;
-import com.app.model.Employee;
+import com.employee.repository.EmployeeRepository;
+import com.employee.exception.ResourceNotFoundException;
+import com.employee.model.Employee;
 
 import java.util.HashMap;
 import java.util.List;
