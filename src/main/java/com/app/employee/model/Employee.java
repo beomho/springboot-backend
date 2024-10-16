@@ -1,4 +1,4 @@
-package com.app.model;
+package com.app.employee.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,17 +7,17 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("groceryitems")
+@Document("employees")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class GroceryItem {
+public class Employee {
 
     @Id
     private String id;
-    private String name;
-    private int quantity;
-    private String category;
+    private String first_name;
+    private String last_name;
+    private String email;
 
 }

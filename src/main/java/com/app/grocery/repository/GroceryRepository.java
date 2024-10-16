@@ -1,21 +1,21 @@
-package com.employee.repository;
+package com.app.grocery.repository;
 
-import com.employee.model.Employee;
+import com.app.grocery.model.Grocery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
 
-public interface EmployeeRepository extends MongoRepository<Employee, String> {
+public interface GroceryRepository extends MongoRepository<Grocery, String> {
 
     @Query("{id:'?0'}")
-    Employee findItemById(String id);
+    Grocery findItemById(String id);
     
     @Query("{name:'?0'}")
-    Employee findItemByName(String name);
+    Grocery findItemByName(String name);
 
     @Query(value = "{category:'?0'}", fields = "{'name' : 1, 'quantity' : 1}")
-    List<Employee> findAll(String category);
+    List<Grocery> findAll(String category);
 
     public long count();
 

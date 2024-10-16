@@ -1,55 +1,39 @@
 package com.app;
 
-import com.app.model.GroceryItem;
-import com.app.repository.ItemRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Arrays;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import lombok.extern.slf4j.Slf4j;
-
+import org.springframework.context.ApplicationContext;
 
 @Slf4j
 @SpringBootApplication
 @EnableMongoRepositories
-public class MainApplication implements CommandLineRunner {
-
-   @Autowired
-   ItemRepository groceryItemRepo;
+public class MainApplication {
 
    public static void main(String[] args) {
       SpringApplication.run(MainApplication.class, args);
    }
 
-   @Override
-   public void run(String... args) throws Exception {
-      log.info("-------------CREATE GROCERY ITEMS------\n");
-      createGroceryItems();
+   @Bean
+   public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+      return args -> {
 
-      log.info("\n------------SHOW ALL GROCERY ITEMS---\n");
-      showAllGroceryItems();
+         log.info("Let's inspect the beans provided by Spring Boot:");
+
+         String[] beanNames = ctx.getBeanDefinitionNames();
+         Arrays.sort(beanNames);
+         log.info("==============================================================");
+         for (String beanName : beanNames) {
+            log.info(beanName);
+         }
+         log.info("==============================================================");
+
+      };
    }
 
-   void createGroceryItems() {
-      log.info("Data creation started...");
-      groceryItemRepo.save(new GroceryItem("Whole Wheat Biscuit", "Whole Wheat Biscuit", 5, "snacks"));
-      log.info("Data creation complete...");
-   }
-
-   public void showAllGroceryItems() {
-      groceryItemRepo.findAll().forEach(item -> log.info(getItemDetails(item)));
-   }
-
-   public void getGroceryItemByName(String name) {
-      log.info("Getting item by name: " + name);
-      GroceryItem item = groceryItemRepo.findItemByName(name);
-      log.info(getItemDetails(item));
-   }
-
-   public String getItemDetails(GroceryItem item) {
-      log.info("Item Name: " + item.getName() + ", \nQuantity: " + item.getQuantity() + ", \nItem Category: " + item.getCategory());
-      return "";
-   }
-   
 }
